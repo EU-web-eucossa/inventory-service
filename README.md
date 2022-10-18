@@ -15,7 +15,8 @@ On linux there are a variety of ways you can use to install `nodejs`
 - Using `node source control`
 - Installing the `tarball`
 
-[Nvm Documentation](https://github.com/nvm-sh/nvm#install--update-script) is easy to work with 
+[Nvm Documentation](https://github.com/nvm-sh/nvm#install--update-script) is easy to work with.
+
 Once you have installed `nvm` run the following command
 ```sh
 nvm install --lts
