@@ -2,8 +2,8 @@
 Inventory management system using GRPC
 
 Sample grpc implementations 
-- [Tutotial 1 link](https://daily.dev/blog/build-a-grpc-service-in-nodejs)
-- [Tutotial 2 Link ](https://www.bacancytechnology.com/blog/implement-grpc-services-in-nodejs)
+- [Tutorial 1 link](https://daily.dev/blog/build-a-grpc-service-in-nodejs)
+- [Tutorial 2 Link ](https://www.bacancytechnology.com/blog/implement-grpc-services-in-nodejs)
 
 # Running the project in dev mode
 
