@@ -38,7 +38,7 @@ server.addService(newsProto.NewsService.service, {
 		callback(null, { news });
 	},
 });
-console.log('Path', protoPath);
+console.log('Path', grpcAddress);
 
 server.bindAsync(
 	grpcAddress,
