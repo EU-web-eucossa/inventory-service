@@ -18,12 +18,9 @@ const NewsService = grpc.loadPackageDefinition(packageDefinition).NewsService;
 
 const client = new NewsService(grpcAddress, grpc.credentials.createInsecure());
 
-if (typeof client.GetAllNews === 'function') {
-	client.GetAllnews({}, (err, response) => {
-		if (err) console.log(err);
-		else console.log('Response: ', response);
-	});
-}
-console.log(client.GetAllNews);
+client.GetAllNews({}, (err, response) => {
+	if (err) console.log('Error', err);
+	else console.log('Response: ', response);
+});
 
 module.exports = client;
