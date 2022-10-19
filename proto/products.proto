@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+message Product {
+    string name = 1;
+    float price = 2;
+    bool inStock = 3;
+    string featuredImage=4;
+    repeated string images=5;
+    string category =6;
+    bool featured =7;
+    float ratings=8;
+    int64 quantity=9;
+    string description =10;
+}
+
+message Empty {}
+
+message ProductsList {
+   repeated Product products = 1;
+}
+message UpdateProductRequest{
+    Product product=1;
+    string id=2;
+}
+message DeleteProductService{
+    string id=1;
+}
+
+message DeleteProductResponse{
+   bool deleted=1;
+   string message=2;
+}
+
+message SearchproductRequest{
+    string searchQuery=1;
+}
+
+service ProductsService {
+    rpc GetAllProducts (Empty) returns (ProductsList) {};
+    rpc AddNewproduct (Product) returns (Product) {};
+    rpc UpdateProduct (UpdateProductRequest) returns (Product){};
+    rpc DeleteProduct(DeleteProductService)returns (DeleteProductResponse){};
+    rpc SearchProduct (SearchproductRequest) returns (ProductsList);
+}
