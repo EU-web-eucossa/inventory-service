@@ -2,6 +2,7 @@ const products = [
 	{
 		id: 1,
 		name: 'Product 1',
+		slug: 'product-1',
 		price: 30.5,
 		inStock: true,
 		featuredImage: 'https://via.placeholder.com/400x400',
@@ -15,6 +16,7 @@ const products = [
 	{
 		id: 2,
 		name: 'Product 2',
+		slug: 'product-2',
 		price: 50.5,
 		inStock: true,
 		featuredImage: 'https://via.placeholder.com/400x400',
@@ -28,6 +30,7 @@ const products = [
 	{
 		id: 3,
 		name: 'Product 3',
+		slug: 'product-3',
 		price: 100.0,
 		inStock: true,
 		featuredImage: 'https://via.placeholder.com/400x400',
@@ -44,6 +47,7 @@ const products = [
 	{
 		id: 4,
 		name: 'Product 4',
+		slug: 'product-4',
 		price: 20.5,
 		inStock: true,
 		featuredImage: 'https://via.placeholder.com/400x400',

@@ -19,8 +19,14 @@ const ProductService = grpc.loadPackageDefinition(packageDefinition).ProductsSer
 const client = new ProductService(grpcAddress, grpc.credentials.createInsecure());
 
 client.GetAllProducts({}, (err, response) => {
-	if (err) console.log('Error', err);
-	else console.log('Response: ', response);
+	if (err) throw new Error(err);
+	else return response;
+});
+
+// eslint-disable-next-line no-undef
+client.AddNewproduct({}, (err, response) => {
+	if (err) throw new Error(err);
+	else return response;
 });
 
 module.exports = client;
