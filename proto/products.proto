@@ -11,6 +11,11 @@ message Product {
     float ratings=8;
     int64 quantity=9;
     string description =10;
+<<<<<<< HEAD
+=======
+    string slug=11;
+    string id=12;
+>>>>>>> development
 }
 
 message Empty {}
