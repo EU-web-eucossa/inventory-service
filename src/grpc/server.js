@@ -4,7 +4,8 @@ const { baseDir, grpcAddress } = require('../config');
 const protoLoader = require('@grpc/proto-loader');
 const chalk = require('chalk');
 const moment = require('moment');
-const protoPath = path.join(baseDir, 'proto', 'news.proto');
+const protoPath = path.join(baseDir, 'proto', 'products.proto');
+const products = require('./data');
 
 const options = {
 	keepCase: true,
@@ -16,29 +17,31 @@ const options = {
 
 const packageDefinition = protoLoader.loadSync(protoPath, options);
 
-const newsProto = grpc.loadPackageDefinition(packageDefinition);
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const ProductService = grpc.loadPackageDefinition(packageDefinition);
 
 const server = new grpc.Server();
 
-const news = [
-	{
-		id: 1,
-		title: 'News 1',
-		content: 'Content 1',
+server.addService(ProductService.ProductsService.service, {
+	GetAllProducts: async (call, callback) => {
+		callback(null, { products });
 	},
-	{
-		id: 2,
-		title: 'News 2',
-		content: 'Content 2',
-	},
-];
+	AddNewproduct: async (call, cb) => {
+		const _newProduct = call.request;
+		_newProduct.id = new Date().getTime().toString();
+		products.push(_newProduct);
 
-server.addService(newsProto.NewsService.service, {
-	GetAllNews:async (call, callback) => {
-		callback(null, { news });
+		cb(null, _newProduct);
 	},
+	UpdateProduct: async (call, cb) => {
+		const _id = call.request.id;
+		const product = call.request.product;
+		let _existingProduct = products.find((p) => p.id === _id);
+		_existingProduct = { ..._existingProduct, ...product };
+		cb(null, _existingProduct);
+	},
+	
 });
-console.log('Path', grpcAddress);
 
 server.bindAsync(
 	grpcAddress,

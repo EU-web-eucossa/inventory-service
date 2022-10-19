@@ -2,7 +2,7 @@ const grpc = require('@grpc/grpc-js');
 const path = require('path');
 const { baseDir, grpcAddress } = require('../config');
 const protoLoader = require('@grpc/proto-loader');
-const protoPath = path.join(baseDir, 'proto', 'news.proto');
+const protoPath = path.join(baseDir, 'proto', 'products.proto');
 
 const options = {
 	keepCase: true,
@@ -14,11 +14,11 @@ const options = {
 
 const packageDefinition = protoLoader.loadSync(protoPath, options);
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const NewsService = grpc.loadPackageDefinition(packageDefinition).NewsService;
+const ProductService = grpc.loadPackageDefinition(packageDefinition).ProductsService;
 
-const client = new NewsService(grpcAddress, grpc.credentials.createInsecure());
+const client = new ProductService(grpcAddress, grpc.credentials.createInsecure());
 
-client.GetAllNews({}, (err, response) => {
+client.GetAllProducts({}, (err, response) => {
 	if (err) console.log('Error', err);
 	else console.log('Response: ', response);
 });
