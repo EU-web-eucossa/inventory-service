@@ -4,17 +4,7 @@ message Product {
     string name = 1;
     float price = 2;
     bool inStock = 3;
-    string featuredImage=4;
-    repeated string images=5;
-    string category =6;
-    bool featured =7;
-    float ratings=8;
-    int64 quantity=9;
-    string description =10;
-    string slug=11;
-    string _id=12;
-    string createdAt=13;
-    string updatedAt=14;
+    Category category = 4;
 }
 
 message Category{
