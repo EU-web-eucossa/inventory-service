@@ -5,6 +5,8 @@ const {
 	ENV: env,
 	GRPC_HOST: grpcHost,
 	GRPC_PORT: grpcPort,
+	HOST_NAME: hostName,
+	MONGO_URL: mongoUrl,
 } = config.config;
 
 module.exports = {
@@ -13,4 +15,6 @@ module.exports = {
 	grpcAddress: `${grpcHost}:${grpcPort}`,
 	grpcHost,
 	grpcPort,
+	hostName,
+	mongoUrl,
 };

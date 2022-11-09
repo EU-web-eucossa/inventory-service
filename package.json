@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev-rpc:server": "nodemon ./src/grpc/server.js",
-    "dev-rpc:client": "nodemon ./src/grpc/client.js",
-    "dev-rest:server": "nodemon ./src/index.js",
+    "dev-rpc:server": "node --watch ./src/grpc/server.js",
+    "dev-rpc:client": "node --watch ./src/grpc/client.js",
+    "dev-rest:server": "node --watch ./src/index.js",
+    "dev": "concurrently \"npm run dev-rpc:server\" \"npm run dev-rpc:client\" \"npm run dev-rest:server\"",
     "gitignore": "pnpm run ngitignore",
     "lint": "eslint ./src/**/*.js",
     "lint:fix": "eslint ./src/**/*.js --fix",
@@ -18,18 +19,21 @@
   "dependencies": {
     "@grpc/grpc-js": "^1.7.2",
     "chalk": "4.1.2",
+    "concurrently": "^7.5.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-winston": "^4.2.0",
     "moment": "^2.29.4",
-    "morgan": "^1.10.0"
+    "mongoose": "^6.7.2",
+    "morgan": "^1.10.0",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
     "eslint": "^8.25.0",
     "ngitignore": "^3.0.1",
-    "nodemon": "^2.0.20",
     "prettier-init": "^1.3.0",
     "typescript": "^4.8.4"
   }

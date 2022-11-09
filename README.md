@@ -21,7 +21,7 @@ Once you have installed `nvm` run the following command
 ```sh
 nvm install --lts
 ```
-The command should install the latest version of __nodejs__ i.e `>=16.*.*`
+The command should install the latest version of __nodejs__ i.e `>=18.*.*`
 
 This should have with it `npm` installed
 Next we'll choose a package manager between

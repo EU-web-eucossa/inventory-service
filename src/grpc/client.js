@@ -19,7 +19,7 @@ const ProductService = grpc.loadPackageDefinition(packageDefinition).ProductsSer
 const client = new ProductService(grpcAddress, grpc.credentials.createInsecure());
 
 client.GetAllProducts({}, (err, response) => {
-	if (err) throw new Error(err);
+	if (err) throw new Error(err.messsage);
 	else return response;
 });
 

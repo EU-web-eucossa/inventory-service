@@ -11,6 +11,7 @@ const config = {
 	HOST_NAME: process.env.HOST_NAME || 'localhost',
 	GRPC_PORT: process.env.GRPC_PORT || 5001,
 	GRPC_HOST: process.env.GRPC_HOST || 'localhost',
+	MONGO_URL: process.env.MONGO_URL || 'mongodb://localhost:27017/eucossa-web2-product-service',
 };
 
 module.exports.config = Object.freeze(config);

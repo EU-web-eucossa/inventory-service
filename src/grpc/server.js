@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 const grpc = require('@grpc/grpc-js');
 const path = require('path');
 const { baseDir, grpcAddress } = require('../config');
@@ -5,7 +6,8 @@ const protoLoader = require('@grpc/proto-loader');
 const chalk = require('chalk');
 const moment = require('moment');
 const protoPath = path.join(baseDir, 'proto', 'products.proto');
-const products = require('./data');
+const Product = require('./../models/product.model');
+const Category = require('./../models/category.model');
 
 const options = {
 	keepCase: true,
@@ -17,30 +19,86 @@ const options = {
 
 const packageDefinition = protoLoader.loadSync(protoPath, options);
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const ProductService = grpc.loadPackageDefinition(packageDefinition);
+const Services = grpc.loadPackageDefinition(packageDefinition);
 
 const server = new grpc.Server();
 
-server.addService(ProductService.ProductsService.service, {
+server.addService(Services.ProductsService.service, {
 	GetAllProducts: async (call, callback) => {
-		callback(null, { products });
+		try {
+			const products = await Product.find();
+
+			callback(null, { products });
+		} catch (error) {
+			callback(error);
+		}
 	},
 	AddNewproduct: async (call, cb) => {
-		const _newProduct = call.request;
-		_newProduct.id = new Date().getTime().toString();
-		products.push(_newProduct);
-
-		cb(null, _newProduct);
+		try {
+			const { product } = call.request;
+			await Product.create(product);
+			cb(null, { message: 'Product added successfully' });
+		} catch (error) {
+			cb(error);
+		}
 	},
 	UpdateProduct: async (call, cb) => {
-		const _id = call.request.id;
-		const product = call.request.product;
-		let _existingProduct = products.find((p) => p.id === _id);
-		_existingProduct = { ..._existingProduct, ...product };
-		cb(null, _existingProduct);
+		try {
+			const { product } = call.request;
+			await Product.findByIdAndUpdate(product._id, product);
+			cb(null, { message: 'Product updated successfully' });
+		} catch (error) {
+			cb(error);
+		}
 	},
-	
+	DeleteProduct: async (call, cb) => {
+		try {
+			const { id } = call.request;
+			await Product.findByIdAndDelete(id);
+			cb(null, { message: 'Product deleted successfully' });
+		} catch (error) {
+			cb(error);
+		}
+	},
+});
+
+server.addService(Services.CategoryService.service, {
+	GetAllCategories: async (call, callback) => {
+		try {
+			const categories = await Category.find();
+
+			callback(null, { categories });
+		} catch (error) {
+			callback(error);
+		}
+	},
+	AddNewCategory: async (call, cb) => {
+		try {
+			const { category } = call.request;
+			await Category.create(category);
+			cb(null, { message: 'Category added successfully' });
+		} catch (error) {
+			cb(error);
+		}
+	},
+	UpdateCategory: async (call, cb) => {
+		try {
+			const { category } = call.request;
+			await Category.findByIdAndUpdate(category._id, category);
+			cb(null, { message: 'Category updated successfully' });
+		} catch (error) {
+			cb(error);
+		}
+	},
+	DeleteCategory: async (call, cb) => {
+		try {
+			const { id } = call.request;
+			await Category.findByIdAndDelete(id);
+			cb(null, { message: 'Category deleted successfully' });
+		} catch (error) {
+			cb(error);
+		}
+	},
 });
 
 server.bindAsync(
@@ -54,7 +112,7 @@ server.bindAsync(
 		}
 		const message = `Server started on ${moment().format(
 			'LLLL',
-		)}\nServer running at http://localhost:${port}`;
+		)}\nGRPC Server running at http://localhost:${port}`;
 		console.log(chalk.bgBlack.yellow(message));
 		server.start();
 	},

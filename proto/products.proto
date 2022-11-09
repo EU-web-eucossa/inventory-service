@@ -12,10 +12,25 @@ message Product {
     int64 quantity=9;
     string description =10;
     string slug=11;
-    string id=12;
+    string _id=12;
+    string createdAt=13;
+    string updatedAt=14;
+}
+
+message Category{
+    string name=1;
+    string description=2;
+    string image =3;
+    string _id=4;
+    string createdAt=5;
+    string updatedAt=6;
 }
 
 message Empty {}
+
+message CategoryList{
+    repeated Category categories=1;
+}
 
 message ProductsList {
    repeated Product products = 1;
@@ -43,4 +58,11 @@ service ProductsService {
     rpc UpdateProduct (UpdateProductRequest) returns (Product){};
     rpc DeleteProduct(DeleteProductService)returns (DeleteProductResponse){};
     rpc SearchProduct (SearchproductRequest) returns (ProductsList);
+}
+
+service CategoryService {
+    rpc GetAllCategories (Empty) returns (CategoryList) {};
+    rpc AddNewCategory (Category) returns (Category) {};
+    rpc UpdateCategory (Category) returns (Category){};
+    rpc DeleteCategory(Category)returns (Category){};
 }
