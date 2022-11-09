@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const  Product  = require('./dto/product');
+const errorhandler = require('./errors/errorhandler');
 
 const app = express();
 
@@ -61,6 +62,7 @@ app.post('/', (req, res) => {
 	}
 });
 
+app.use(errorhandler);
 app.listen(5000, () => {
 	const message = `${chalk.yellow('Server started on')} ${chalk.cyan(
 		moment().format('LLLL'),

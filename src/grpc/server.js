@@ -8,6 +8,7 @@ const moment = require('moment');
 const protoPath = path.join(baseDir, 'proto', 'products.proto');
 const Product = require('./../models/product.model');
 const Category = require('./../models/category.model');
+const p = require('./data')
 
 const options = {
 	keepCase: true,
@@ -26,9 +27,9 @@ const server = new grpc.Server();
 server.addService(Services.ProductsService.service, {
 	GetAllProducts: async (call, callback) => {
 		try {
-			const products = await Product.find();
+			// const products = await Product.find();
 
-			callback(null, { products });
+			callback(null, { products:p });
 		} catch (error) {
 			callback(error);
 		}
