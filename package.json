@@ -9,8 +9,8 @@
     "api:server": "node --watch ./src/api/index.js",
     "start": "node ./src/api/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint":"eslint . *.{jsx,js,ts,tsx}",
-    "lint:fix":"eslint . *.{jsx,js,ts,tsx} --fix"
+    "lint": "eslint . *.{jsx,js,ts,tsx}",
+    "lint:fix": "eslint . *.{jsx,js,ts,tsx} --fix"
   },
   "keywords": [],
   "author": "",
@@ -19,18 +19,22 @@
   "dependencies": {
     "@grpc/grpc-js": "^1.7.3",
     "@grpc/proto-loader": "^0.7.3",
+    "chalk": "4.1.2",
+    "concurrently": "^7.5.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-winston": "^4.2.0",
     "moment": "^2.29.4",
     "mongoose": "^6.7.2",
     "morgan": "^1.10.0",
-    "winston": "^3.8.2",
-    "chalk": "4.1.2",
-    "concurrently": "^7.5.0",
-    "cors": "^2.8.5",
-    "string-shuffle": "^1.2.4"
-  },"devDependencies": {
+    "openapi-types": "^12.0.2",
+    "string-shuffle": "^1.2.4",
+    "swagger-jsdoc": "^6.2.5",
+    "swagger-ui-express": "^4.6.0",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
     "eslint": "^8.25.0",

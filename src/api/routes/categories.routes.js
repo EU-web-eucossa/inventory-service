@@ -2,7 +2,7 @@
  * @ Author: Felix Orinda
  * @ Create Time: 2022-11-18 12:34:26
  * @ Modified by: Felix Orinda
- * @ Modified time: 2022-11-18 14:24:28
+ * @ Modified time: 2022-11-18 15:17:45
  * @ Description:
  */
 
@@ -10,9 +10,22 @@ const { categoriesClient } = require('../../grpc/client');
 const { requestLogger } = require('../../utils/logger');
 
 const router = require('express').Router();
+
 /**
- * Get all categories
- *
+ * @openapi
+ * /categories:
+ *  get:
+ *   summary: Get all categories
+ *  description: Get all categories
+ * responses:
+ * 200:
+ * description: Success
+ * content:
+ * application/json:
+ * schema:
+ * type: array
+ * items:
+ * $ref: '#/components/schemas/Category'
  */
 router.get('/', requestLogger, async (req, res) => {
 	const { page, limit } = req.query;
@@ -20,14 +33,9 @@ router.get('/', requestLogger, async (req, res) => {
 	return categoriesClient.getAllCategories(
 		{ page: page ? page : 1, limit: limit ? limit : 20 },
 		async (err, response) => {
-			const resp = await response;
-			if (err) 
-        
-				return res.status(500).json({ error: err.message });
-			else 
-				return res.json(response);
-      
-		}
+			if (err) return res.status(500).json({ error: err.message });
+			else return res.json(response);
+		},
 	);
 });
 
@@ -43,23 +51,18 @@ router.post('/add', requestLogger, async (req, res) => {
 		createdAt = new Date(),
 		updatedAt = new Date(),
 	} = req.body;
-	if (!name) 
-		return res.status(400).json({ error: 'Name is required' });
-  
-	if (!description) 
+	if (!name) return res.status(400).json({ error: 'Name is required' });
+
+	if (!description)
 		return res.status(400).json({ error: 'Description is required' });
-  
-	if (!image) 
-		return res.status(400).json({ error: 'Image is required' });
-  
+
+	if (!image) return res.status(400).json({ error: 'Image is required' });
+
 	const category = { name, description, image, _id, createdAt, updatedAt };
 
 	return categoriesClient.addNewCategory(category, async (err, response) => {
-		if (err) 
-			return res.status(500).json({ error: err.message });
-		else 
-			return res.json(response);
-    
+		if (err) return res.status(500).json({ error: err.message });
+		else return res.json(response);
 	});
 });
 
@@ -71,15 +74,11 @@ router.post('/add', requestLogger, async (req, res) => {
  */
 router.get('/find/:id', requestLogger, async (req, res) => {
 	const { id } = req.params;
-	if (!id) 
-		return res.status(400).json({ error: 'Id is required' });
-  
+	if (!id) return res.status(400).json({ error: 'Id is required' });
+
 	return categoriesClient.getCategoryById({ id }, async (err, response) => {
-		if (err) 
-			return res.status(500).json({ error: err.message });
-		else 
-			return res.json(response);
-    
+		if (err) return res.status(500).json({ error: err.message });
+		else return res.json(response);
 	});
 });
 
@@ -93,12 +92,9 @@ router.put('/update/:id', requestLogger, async (req, res) => {
 	return categoriesClient.updateCategory(
 		{ id, ...req.body },
 		async (err, response) => {
-			if (err) 
-				return res.status(500).json({ error: err.message });
-			else 
-				return res.json(response);
-      
-		}
+			if (err) return res.status(500).json({ error: err.message });
+			else return res.json(response);
+		},
 	);
 });
 
@@ -109,15 +105,11 @@ router.put('/update/:id', requestLogger, async (req, res) => {
  */
 router.get('/search', requestLogger, async (req, res) => {
 	const { name } = req.query;
-	if (!name) 
-		return res.status(400).json({ error: 'Name is required' });
-  
+	if (!name) return res.status(400).json({ error: 'Name is required' });
+
 	return categoriesClient.searchCategory({ name }, async (err, response) => {
-		if (err) 
-			return res.status(500).json({ error: err.message });
-		else 
-			return res.json(response);
-    
+		if (err) return res.status(500).json({ error: err.message });
+		else return res.json(response);
 	});
 });
 
