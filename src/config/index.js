@@ -1,3 +1,11 @@
+/**
+ * @ Author: Felix Orinda
+ * @ Create Time: 2022-11-18 11:30:24
+ * @ Modified by: Felix Orinda
+ * @ Modified time: 2022-11-18 13:15:18
+ * @ Description:
+ */
+
 /* eslint-disable @typescript-eslint/naming-convention */
 const config = require('./../../node.config');
 const {
@@ -7,7 +15,9 @@ const {
 	GRPC_PORT: grpcPort,
 	HOST_NAME: hostName,
 	MONGO_URL: mongoUrl,
-} = config.config;
+	API_HOST: apiHost,
+	API_PORT: apiPort,
+} = config;
 
 module.exports = {
 	baseDir,
@@ -17,4 +27,7 @@ module.exports = {
 	grpcPort,
 	hostName,
 	mongoUrl,
+	apiHost,
+	apiPort,
+	apiAddress: `${apiHost}:${apiPort}`,
 };

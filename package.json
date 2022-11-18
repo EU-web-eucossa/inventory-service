@@ -1,36 +1,36 @@
 {
-  "name": "inventory_service",
+  "name": "node-grpc",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev-rpc:server": "node --watch ./src/grpc/server.js",
-    "dev-rpc:client": "node --watch ./src/grpc/client.js",
-    "dev-rest:server": "node --watch ./src/index.js",
-    "dev": "concurrently \"npm run dev-rpc:server\" \"npm run dev-rpc:client\" \"npm run dev-rest:server\"",
-    "gitignore": "pnpm run ngitignore",
-    "lint": "eslint ./src/**/*.js",
-    "lint:fix": "eslint ./src/**/*.js --fix",
-    "test": "jest --coverage -u --detectOpenHandles"
+    "grpc:server": "node --watch ./src/grpc/server/index.js",
+    "grpc:client": "node --watch ./src/grpc/client/index.js",
+    "api:server": "node --watch ./src/api/index.js",
+    "start": "node ./src/api/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint":"eslint . *.{jsx,js,ts,tsx}",
+    "lint:fix":"eslint . *.{jsx,js,ts,tsx} --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "packageManager": "pnpm",
   "dependencies": {
-    "@grpc/grpc-js": "^1.7.2",
-    "chalk": "4.1.2",
-    "concurrently": "^7.5.0",
-    "cors": "^2.8.5",
+    "@grpc/grpc-js": "^1.7.3",
+    "@grpc/proto-loader": "^0.7.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-winston": "^4.2.0",
     "moment": "^2.29.4",
     "mongoose": "^6.7.2",
     "morgan": "^1.10.0",
-    "string-shuffle": "^1.2.4",
-    "winston": "^3.8.2"
-  },
-  "devDependencies": {
+    "winston": "^3.8.2",
+    "chalk": "4.1.2",
+    "concurrently": "^7.5.0",
+    "cors": "^2.8.5",
+    "string-shuffle": "^1.2.4"
+  },"devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
     "eslint": "^8.25.0",

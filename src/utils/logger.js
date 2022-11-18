@@ -1,8 +1,16 @@
-const { baseDir } = require('./../config');
+/**
+ * @ Author: Felix Orinda
+ * @ Create Time: 2022-11-18 11:11:23
+ * @ Modified by: Felix Orinda
+ * @ Modified time: 2022-11-18 13:12:34
+ * @ Description:
+ */
+
 const winston = require('winston');
 const path = require('path');
 const moment = require('moment');
 const expressWinston = require('express-winston');
+const { baseDir } = require('../config');
 
 module.exports.requestLogger = expressWinston.logger({
 	transports: [

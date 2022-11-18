@@ -1,25 +1,28 @@
+/**
+ * @ Author: Felix Orinda
+ * @ Create Time: 2022-11-18 10:35:59
+ * @ Modified by: Felix Orinda
+ * @ Modified time: 2022-11-18 13:55:46
+ * @ Description:
+ */
+
 syntax = "proto3";
+
+package productPackage;
 
 message Product {
     string name = 1;
     float price = 2;
     bool inStock = 3;
-    Category category = 4;
-}
-
-message Category{
-    string name=1;
-    string description=2;
-    string image =3;
-    string _id=4;
-    string createdAt=5;
-    string updatedAt=6;
-}
-
-message Empty {}
-
-message CategoryList{
-    repeated Category categories=1;
+    string featuredImage=4;
+    repeated string images=5;
+    string category =6;
+    bool featured =7;
+    float ratings=8;
+    int64 quantity=9;
+    string description =10;
+    string slug=11;
+    string _id=12;
 }
 
 message ProductsList {
@@ -30,7 +33,7 @@ message UpdateProductRequest{
     string id=2;
 }
 message DeleteProductService{
-    string id=1;
+    string _id=1;
 }
 
 message DeleteProductResponse{
@@ -39,20 +42,128 @@ message DeleteProductResponse{
 }
 
 message SearchproductRequest{
-    string searchQuery=1;
+    string q=1;
+    int32 page=2;
+    int32 limit=3;
 }
 
-service ProductsService {
-    rpc GetAllProducts (Empty) returns (ProductsList) {};
-    rpc AddNewproduct (Product) returns (Product) {};
-    rpc UpdateProduct (UpdateProductRequest) returns (Product){};
-    rpc DeleteProduct(DeleteProductService)returns (DeleteProductResponse){};
-    rpc SearchProduct (SearchproductRequest) returns (ProductsList);
+message SearchProductResponse{
+    repeated Product products=1;
+    int32 total=2;
+    int32 page=3;
+    int32 limit=4;
+}
+
+message GetProductByIdRequest{
+    string _id=1;
+}
+
+message GetProductByIdResponse{
+    Product product=1;
+}
+
+message GetProductsRequest{
+    int32 page=1;
+    int32 limit=2;
+}
+
+message GetProductsResponse{
+    repeated Product products=1;
+    int32 total=2;
+    int32 page=3;
+    int32 limit=4;
+}
+
+message AddProductRequest{
+    Product product=1;
+}
+
+message AddProductResponse{
+    Product product=1;
+}
+
+service ProductService {
+    rpc getAllProducts (GetProductsRequest) returns (GetProductsResponse) {};
+    rpc addNewProduct (AddProductRequest) returns (AddProductResponse) {};
+    rpc updateProduct (UpdateProductRequest) returns (Product){};
+    rpc deleteProduct(DeleteProductService)returns (DeleteProductResponse){};
+    rpc searchProduct (SearchproductRequest) returns (SearchProductResponse){};
+    rpc getProductById (GetProductByIdRequest) returns (GetProductByIdResponse){};
+
+}
+
+message Category{
+    string name=1;
+    string description=2;
+    string image =3;
+    string _id=4;
+    string createdAt=5;
+    string updatedAt=6;
+}
+message CategoryList{
+    repeated Category categories=1;
+}
+
+message AddCategoryRequest{
+    string name=1;
+    string description=2;
+    string image =3;
+}
+
+message AddCategoryResponse{
+    Category category=1;
+}
+
+message GetCategoryByIdRequest{
+    string _id=1;
+}
+
+message GetCategoryByIdResponse{
+    Category category=1;
+}
+
+message GetCategoryListRequest{
+    int32 page=1;
+    int32 limit=2;
+}
+
+message GetCategoryListResponse{
+    repeated Category categories=1;
+}
+
+message UpdateCategoryRequest{
+    string _id=1;
+    string name=2;
+    string description=3;
+    string image =4;
+}
+
+message UpdateCategoryResponse{
+    Category category=1;
+}
+
+message DeleteCategoryRequest{
+    string _id=1;
+}
+
+message DeleteCategoryResponse{
+    bool deleted=1;
+    string message=2;
+}
+
+message SearchCategoryRequest{
+    string queryString=1;
+    int32 page=2;
+    int32 limit=3;
 }
 
 service CategoryService {
-    rpc GetAllCategories (Empty) returns (CategoryList) {};
-    rpc AddNewCategory (Category) returns (Category) {};
-    rpc UpdateCategory (Category) returns (Category){};
-    rpc DeleteCategory(Category)returns (Category){};
+    rpc getAllCategories (GetCategoryListRequest) returns (GetCategoryListResponse) {};
+    rpc addNewCategory (AddCategoryRequest) returns (AddCategoryResponse) {};
+    rpc updateCategory (UpdateCategoryRequest) returns (UpdateCategoryResponse){};
+    rpc deleteCategory(DeleteCategoryRequest)returns (DeleteCategoryResponse){};
+    rpc getCategoryById(GetCategoryByIdRequest)returns (GetCategoryByIdResponse){};
+    rpc searchCategory(SearchCategoryRequest)returns (GetCategoryListResponse){};
+
 }
+message Empty {}

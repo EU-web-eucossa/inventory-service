@@ -1,3 +1,11 @@
+/**
+ * @ Author: Felix Orinda
+ * @ Create Time: 2022-11-18 11:17:05
+ * @ Modified by: Felix Orinda
+ * @ Modified time: 2022-11-18 14:34:43
+ * @ Description:
+ */
+
 /* eslint-disable @typescript-eslint/naming-convention */
 const mongoose = require('./../database/mongodb');
 const slugify = require('./../utils/slugify');
@@ -26,6 +34,7 @@ const ProductSchema = new Schema(
 		images: {
 			type: [String],
 			required: true,
+			default: [],
 		},
 		category: {
 			type: Schema.Types.ObjectId,
@@ -43,6 +52,8 @@ const ProductSchema = new Schema(
 		quantity: {
 			type: Number,
 			required: true,
+			min: 0,
+			max: 30000,
 		},
 		description: {
 			type: String,
@@ -53,8 +64,10 @@ const ProductSchema = new Schema(
 			required: true,
 		},
 	},
-	{ timestamps: true },
+	{ timestamps: true }
 );
+
+ProductSchema.index({ name: 'text', slug: 'text', description: 'text' });
 
 const Product = mongoose.model('Product', ProductSchema);
 
