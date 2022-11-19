@@ -2,7 +2,7 @@
  * @ Author: Felix Orinda
  * @ Create Time: 2022-11-18 10:35:59
  * @ Modified by: Felix Orinda
- * @ Modified time: 2022-11-18 13:55:46
+ * @ Modified time: 2022-11-19 05:11:42
  * @ Description:
  */
 
@@ -129,6 +129,9 @@ message GetCategoryListRequest{
 
 message GetCategoryListResponse{
     repeated Category categories=1;
+    int32 total=2;
+    int32 page=3;
+    int32 limit=4;
 }
 
 message UpdateCategoryRequest{

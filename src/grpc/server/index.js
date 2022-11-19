@@ -2,7 +2,7 @@
  * @ Author: Felix Orinda
  * @ Create Time: 2022-11-18 10:38:45
  * @ Modified by: Felix Orinda
- * @ Modified time: 2022-11-18 14:28:28
+ * @ Modified time: 2022-11-19 05:11:00
  * @ Description:
  */
 
@@ -104,7 +104,8 @@ server.addService(productPackage.CategoryService.service, {
 			.sort({ createdAt: -1 })
 			.skip((page - 1) * limit)
 			.limit(limit);
-		categories.length > 0 ? cb(null, { categories }) : cb(null, { categories });
+		let total = await ProductCategory.countDocuments();
+		categories.length > 0 ? cb(null, { categories,page,limit,total }) : cb(null, { categories,page,limit,total });
 	},
 	addNewCategory: (call, cb) => {
 		const newCategory = new ProductCategory(call.request);
