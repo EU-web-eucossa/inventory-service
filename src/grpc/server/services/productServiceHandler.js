@@ -2,7 +2,7 @@
  * @ Author: Felix Orinda
  * @ Create Time: 2022-11-19 05:14:28
  * @ Modified by: Felix Orinda
- * @ Modified time: 2022-11-19 05:18:29
+ * @ Modified time: 2022-11-23 15:22:56
  * @ Description:
  */
 
@@ -38,17 +38,14 @@ const addNewProduct = (call, cb) => {
 	});
 };
 const updateProduct = async (call, cb) => {
-	const { product } = call.request;
-	Product.findByIdAndUpdate(
-		product._id,
+	const { product,id } = call.request;
+	const newProduct = await Product.findByIdAndUpdate(
+		id,
 		product,
 		{ new: true },
-		(err, product) => {
-			if (err) cb(err, null);
-
-			cb(null, { product });
-		},
 	);
+	
+	return cb(null, { product: newProduct });
 };
 const deleteProduct = async (call, cb) => {
 	const { id } = call.request;
