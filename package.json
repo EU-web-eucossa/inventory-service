@@ -8,6 +8,7 @@
     "grpc:client": "node --watch ./src/grpc/client/index.js",
     "api:server": "node --watch ./src/api/index.js",
     "start": "node ./src/api/index.js",
+    "build": "echo \"Success\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . *.{jsx,js,ts,tsx}",
     "lint:fix": "eslint . *.{jsx,js,ts,tsx} --fix"
